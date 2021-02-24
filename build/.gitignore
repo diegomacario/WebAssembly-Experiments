@@ -1,0 +1,6 @@
+# Build results
+*.data
+*.html
+*.js
+*.wasm
+*.wasm.map
