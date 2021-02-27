@@ -144,8 +144,6 @@ int main()
       std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
    }
 
-   if (glGetError() != GL_NO_ERROR) { std::cout << "GL ERROR 2!" << std::endl; }
-
    // Fragment shader
    int fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
    glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
@@ -157,8 +155,6 @@ int main()
       glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
       std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
    }
-
-   if (glGetError() != GL_NO_ERROR) { std::cout << "GL ERROR 3!" << std::endl; }
 
    // Shader program
    shaderProgram = glCreateProgram();
@@ -175,8 +171,6 @@ int main()
 
    glDeleteShader(vertexShader);
    glDeleteShader(fragmentShader);
-
-   if (glGetError() != GL_NO_ERROR) { std::cout << "GL ERROR 4!" << std::endl; }
 
    //                     Positions           Texture coords
    //                    <--------------->    <-------->
@@ -243,8 +237,6 @@ int main()
    glBindBuffer(GL_ARRAY_BUFFER, VBO);
    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-   if (glGetError() != GL_NO_ERROR) { std::cout << "GL ERROR 5!" << std::endl; }
-
    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
    glEnableVertexAttribArray(0);
 
@@ -253,8 +245,6 @@ int main()
 
    glBindBuffer(GL_ARRAY_BUFFER, 0);
    glBindVertexArray(0);
-
-   if (glGetError() != GL_NO_ERROR) { std::cout << "GL ERROR 6!" << std::endl; }
 
    // Texture 1
 
@@ -267,8 +257,6 @@ int main()
 
    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-   if (glGetError() != GL_NO_ERROR) { std::cout << "GL ERROR 7!" << std::endl; }
 
    stbi_set_flip_vertically_on_load(true);
 
@@ -287,8 +275,6 @@ int main()
 
    glBindTexture(GL_TEXTURE_2D, 0);
 
-   if (glGetError() != GL_NO_ERROR) { std::cout << "GL ERROR 8!" << std::endl; }
-
    stbi_image_free(data);
 
    // Texture 2
@@ -303,18 +289,12 @@ int main()
    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-   if (glGetError() != GL_NO_ERROR) { std::cout << "GL ERROR 9!" << std::endl; }
-
    data = stbi_load("resources/awesomeface.png", &width, &height, &nrChannels, 0);
-
-   if (glGetError() != GL_NO_ERROR) { std::cout << "GL ERROR 9.01!" << std::endl; }
 
    if (data)
    {
       glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
       glGenerateMipmap(GL_TEXTURE_2D);
-
-      if (glGetError() != GL_NO_ERROR) { std::cout << "GL ERROR 9.1!" << std::endl; }
    }
    else
    {
@@ -322,8 +302,6 @@ int main()
    }
 
    glBindTexture(GL_TEXTURE_2D, 0);
-
-   if (glGetError() != GL_NO_ERROR) { std::cout << "GL ERROR 10!" << std::endl; }
 
    stbi_image_free(data);
 
@@ -337,16 +315,11 @@ int main()
    glUniform1i(tex2Loc, 1);
    if (tex2Loc == -1) { std::cout << "GL ERROR B!" << std::endl; }
 
-   if (glGetError() != GL_NO_ERROR) { std::cout << "GL ERROR 11!" << std::endl; }
-
-   // ---
-
    cgltf_data* gltfData = LoadGLTFFile("resources/IKCourse.gltf");
    mGroundMeshes = LoadStaticMeshes(gltfData);
    FreeGLTFFile(gltfData);
 
    int positionsAttribLoc = 0;
-   //int normalsAttribLocOfStaticShader   = mStaticMeshShader->getAttributeLocation("normal");
    int texCoordsAttribLoc = 1;
    for (unsigned int i = 0,
         size = static_cast<unsigned int>(mGroundMeshes.size());
@@ -354,11 +327,9 @@ int main()
         ++i)
    {
       mGroundMeshes[i].ConfigureVAO(positionsAttribLoc,
-                                    -1, //normalsAttribLocOfStaticShader,
+                                    -1,
                                     texCoordsAttribLoc);
    }
-
-   // ---
 
    //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
    //glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -381,11 +352,6 @@ bool changeBGColor = false;
 
 void loop()
 {
-   if (glGetError() != GL_NO_ERROR)
-   {
-      std::cout << "GL ERROR!" << std::endl;
-   }
-
    float currentFrame = (float)glfwGetTime();
    deltaTime = currentFrame - lastFrame;
    lastFrame = currentFrame;
@@ -412,7 +378,6 @@ void loop()
       glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
    }
 
-   //glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
    glActiveTexture(GL_TEXTURE0);
@@ -420,17 +385,7 @@ void loop()
    glActiveTexture(GL_TEXTURE1);
    glBindTexture(GL_TEXTURE_2D, texture2);
 
-   if (glGetError() != GL_NO_ERROR)
-   {
-      std::cout << "GL ERROR 20!" << std::endl;
-   }
-
    glUseProgram(shaderProgram);
-
-   if (glGetError() != GL_NO_ERROR)
-   {
-      std::cout << "GL ERROR 21!" << std::endl;
-   }
 
    glm::mat4 projection = glm::perspective(glm::radians(fov),                    // FoV
                                            (float)SCR_WIDTH / (float)SCR_HEIGHT, // Aspect ratio
@@ -445,21 +400,11 @@ void loop()
                                 cameraPos + cameraFront, // At: A point + A vector = A point at the tip of the vector
                                 cameraUp);               // Up
 
-   if (glGetError() != GL_NO_ERROR)
-   {
-      std::cout << "GL ERROR 22!" << std::endl;
-   }
-
    unsigned int viewLoc = glGetUniformLocation(shaderProgram, "view");
    if (viewLoc == -1) { std::cout << "GL ERROR D!" << std::endl; }
    glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
 
    glBindVertexArray(VAO);
-
-   if (glGetError() != GL_NO_ERROR)
-   {
-      std::cout << "GL ERROR 23!" << std::endl;
-   }
 
    for (unsigned int i = 0; i < 10; ++i)
    {
@@ -475,11 +420,6 @@ void loop()
 
       // Draw
       glDrawArrays(GL_TRIANGLES, 0, 36);
-
-      if (glGetError() != GL_NO_ERROR)
-      {
-         std::cout << "GL ERROR 24!" << std::endl;
-      }
    }
 
    glBindVertexArray(0);
