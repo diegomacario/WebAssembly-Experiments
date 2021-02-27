@@ -12,7 +12,7 @@ set(project_headers
 set(project_sources
     src/AnimatedMesh.cpp
     src/GLTFLoader.cpp
-    src/Ten3DCubesWithCameraGLTF.cpp
+    src/Ten3DCubesWithCamera.cpp
     dependencies/src/cgltf/cgltf.c
 	dependencies/src/imgui/imgui.cpp
 	dependencies/src/imgui/imgui_demo.cpp

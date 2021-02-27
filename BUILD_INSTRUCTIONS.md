@@ -14,7 +14,7 @@ Open `\emsdk\emcmdprompt.bat`, navigate to the root of this repository and execu
 emcc src\HelloTriangle.cpp -O3 -s USE_WEBGL2=1 -s FULL_ES3=1 -s USE_GLFW=3 -s WASM=1 -o build/index.html
 ```
 
-### To build the Ten3DCubesWithCameraGLTF.cpp example
+### To build the Ten3DCubesWithCamera.cpp example
 
 Open an `x64 Native Tools Command Prompt for VS 20XX`", execute `\emsdk\emcmdprompt.bat` in it, navigate to the build folder of this repository and execute these commands:
 
