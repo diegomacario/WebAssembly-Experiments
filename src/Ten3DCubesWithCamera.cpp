@@ -309,11 +309,9 @@ int main()
 
    unsigned int tex1Loc = glGetUniformLocation(shaderProgram, "texture1");
    glUniform1i(tex1Loc, 0);
-   if (tex1Loc == -1) { std::cout << "GL ERROR A!" << std::endl; }
 
    unsigned int tex2Loc = glGetUniformLocation(shaderProgram, "texture2");
    glUniform1i(tex2Loc, 1);
-   if (tex2Loc == -1) { std::cout << "GL ERROR B!" << std::endl; }
 
    cgltf_data* gltfData = LoadGLTFFile("resources/IKCourse.gltf");
    mGroundMeshes = LoadStaticMeshes(gltfData);
@@ -393,7 +391,6 @@ void loop()
                                            100.0f);                              // Far
 
    unsigned int projectionLoc = glGetUniformLocation(shaderProgram, "projection");
-   if (projectionLoc == -1) { std::cout << "GL ERROR C!" << std::endl; }
    glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
 
    glm::mat4 view = glm::lookAt(cameraPos,               // From
@@ -401,7 +398,6 @@ void loop()
                                 cameraUp);               // Up
 
    unsigned int viewLoc = glGetUniformLocation(shaderProgram, "view");
-   if (viewLoc == -1) { std::cout << "GL ERROR D!" << std::endl; }
    glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
 
    glBindVertexArray(VAO);
@@ -415,7 +411,6 @@ void loop()
       model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
 
       unsigned int modelLoc = glGetUniformLocation(shaderProgram, "model");
-      if (modelLoc == -1) { std::cout << "GL ERROR E!" << std::endl; }
       glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
       // Draw
